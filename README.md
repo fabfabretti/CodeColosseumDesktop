@@ -69,18 +69,13 @@ From the main folder of the app ( same location as package.json )
 
 Install node dependencies (run once):     
 ```bash
-yarn
+yarn install
 ```
 
 To run the actuall app during development ( it autoreload when files are changed )     
 Then navigate to `http://localhost:4200/`
 ```bash
 yarn tauri dev
-```
-
-To create new components (ex: views ) 
-```bash
-ng generate component component-name
 ```
 
 To build a "production" version, the build artifacts will be stored in the `dist/` directory and the tauri builded version will be located in `src-tauri/target` folder.
