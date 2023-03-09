@@ -146,19 +146,19 @@ export namespace Packets{
     }
   
     export class MatchInfo {
-        public players: number=0;
-        public bots: number=0;
-        public timeout: number=0.0;
-        public args = {};
-        public id: string="";
-        public name: string="";
-        public game: string="";
-        public running: boolean=false;
-        public time: number=0;
-        public connected:any[]=[];
-        public spectators: number=0;
-        public password: boolean=false;
-        public verified: boolean=false;
+      public players: number=0;
+      public bots: number=0;
+      public timeout: number=0.0;
+      public args = {};
+      public id: string="";
+      public name: string="";
+      public game: string="";
+      public running: boolean=false;
+      public time: number=0;
+      public connected:any[]=[];
+      public spectators: number=0;
+      public password: boolean=false;
+      public verified: boolean=false;
     }
     
     // Requests ---------------------------------

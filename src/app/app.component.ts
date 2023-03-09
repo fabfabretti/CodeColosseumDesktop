@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    if (this.isConnected==false){
+    if (!this.isConnected){
       this.router.navigateByUrl("/connect")
     }
   }

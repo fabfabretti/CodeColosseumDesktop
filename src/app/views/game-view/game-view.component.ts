@@ -43,8 +43,6 @@ export class GameViewComponent implements OnInit {
 
   executableParameters:string = "";
 
-  firstBinaryMsg = true;
-
   tauriService = new TauriService();
 
   constructor(
@@ -174,8 +172,7 @@ export class GameViewComponent implements OnInit {
     // Messages sent during match are of this kind.
     let onData = (data:string)=>{
       if(data != ""){
-        let sender: ChatSender = this.firstBinaryMsg ? "server" : "other";
-        this.firstBinaryMsg = false;
+        let sender: ChatSender = "server";
 
         this.messages.push({sender:sender, content:data.replaceAll("\n", "<br>")});
         this.sendToTauri(data);
@@ -226,7 +223,7 @@ export class GameViewComponent implements OnInit {
     let paramsArray:string[] = [];
 
     if(params != ""){
-      paramsArray = params.split(",");
+      paramsArray = params.split("\n");
       
       for(let i = 0; i < paramsArray.length; i++){
         paramsArray[i] = paramsArray[i].trim();

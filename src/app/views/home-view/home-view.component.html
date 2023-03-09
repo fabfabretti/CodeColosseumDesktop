@@ -57,18 +57,18 @@
                                         </p>
                                     </div>
                                     <div class="p-buttonset">
-                                            <button pButton pRipple icon="pi pi-play" class="p-button-round" [routerLink]="['/game', game.id]" pTooltip="Play" tooltipPosition="top"></button>
+                                            <button pButton *ngIf="!game.running" pRipple icon="pi pi-play" class="p-button-round" [routerLink]="['/game', game.id]" pTooltip="Play" tooltipPosition="top"></button>
+                                            <button pButton *ngIf="game.running" pRipple disabled icon="pi pi-play" class="p-button-round" [routerLink]="['/game', game.id]" pTooltip="Play" tooltipPosition="top"></button>
                                             <button pButton class="p-button-round p-button-secondary" [routerLink]="['/spectate', game.id]"  icon="pi pi-eye" pTooltip="Spectate" tooltipPosition="top"></button>
                                     </div>
                                 </div>
                                 <ul class="list-none m-0 p-0">
                                     <li class="px-0 py-2 flex justify-content-between align-items-center border-bottom-1 surface-border">
-                                        
                                         <span class="text-600 font-medium text-sm">
                                             <p-tag  value="{{game.running ? 'Running':'Waiting for players'}}" [severity]="game.running ? 'success' : 'warning'"></p-tag>
                                         </span>
                                         <span class="text-900 font-medium text-sm">
-                                            {{truncateDecimals(game.time/60)}}m {{truncateDecimals(game.time%60).toFixed(0)}}s 
+                                            {{abs(truncateDecimals(game.time/60))}}m {{abs(truncateDecimals(game.time%60)).toFixed(0)}}s 
                                             {{game.running? " elapsed" : " left"}}
                                         </span>
                                     </li>
