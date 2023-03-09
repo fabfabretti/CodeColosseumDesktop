@@ -8,16 +8,16 @@
     </div>
     <div class="cc-topbar-info-list">
       <div class="cc-topbar-info cc-topbar-info-username" *ngIf="isConnected">
-        <p>Ciao {{ username }}!</p>
+        <p>Hello {{ username }}!</p>
       </div>
       <div class="cc-topbar-info cc-topbar-info-server" *ngIf="isConnected">
-        <p>Connesso a {{serverUrl}}</p>
+        <p>Connected to {{serverUrl}}</p>
       </div>
       <div class="cc-topbar-info">
         <button pButton icon="pi {{changeThemIcon}}" (click)="toggleTheme()"></button>
       </div>
       <div class="cc-topbar-info cc-topbar-info-logout" *ngIf="isConnected">
-        <button pButton icon="pi pi-replay" label="Cambia server" (click)="disconnect()">
+        <button pButton icon="pi pi-replay" label="Change server" (click)="disconnect()">
         </button>
       </div>
     </div>
@@ -28,7 +28,7 @@
   <footer style="text-align: center;padding: 30px;">
     <p>TalCo Team</p>
     <a routerLink="/about">About</a> - 
-    <a routerLink="/feedback">Give us feedback!</a> 
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTZrtujHC0z0PLvzdKYx7wiPaDT8_-krppLbPJ7w6mANPHzA/viewform" target="_blank">Give us feedback!</a> 
   </footer>
 
 </div>
