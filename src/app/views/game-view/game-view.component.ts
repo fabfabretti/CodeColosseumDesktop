@@ -29,6 +29,7 @@ export class GameViewComponent implements OnInit {
   hasPassword:boolean = true;
   errorMessage:string="";
   gameErrorMessage:string="";
+  gameStdErrorMessages:string="";
 
   // Upload screen
   myfile:any[] = [];
@@ -38,6 +39,7 @@ export class GameViewComponent implements OnInit {
 
   // Messages from APIs
   lastMatchState!:MatchInfo;
+  serverMsgBuffer = "";
   newMsg:string = "";
   messages:ChatMessage[] = [];
 
@@ -173,9 +175,14 @@ export class GameViewComponent implements OnInit {
     let onData = (data:string)=>{
       if(data != ""){
         let sender: ChatSender = "server";
+        
+        this.serverMsgBuffer += data;
 
-        this.messages.push({sender:sender, content:data.replaceAll("\n", "<br>")});
-        this.sendToTauri(data);
+        if(this.serverMsgBuffer.endsWith("\n")){
+          this.messages.push({sender:sender, content:this.serverMsgBuffer.replaceAll("\n", "<br>")});
+          this.sendToTauri(data);
+          this.serverMsgBuffer = "";
+        }
       }
     }
     
@@ -215,6 +222,11 @@ export class GameViewComponent implements OnInit {
     }
 
     let onStdErr = (error:string) => {
+      this.gameStdErrorMessages += "Stderr output: " + error.replaceAll("\n", "<br>");
+      console.log("Stderr output: " + error);
+    }
+
+    let onErr = (error:string) => {
       this.gameErrorMessage = "Error occurred during execution: " + error;
       console.log("Error occurred during execution: " + error);
     }
@@ -230,7 +242,6 @@ export class GameViewComponent implements OnInit {
       }
     }
 
-    //Todo put in actual parameters, these are now hardcoded
-    this.tauriService.execProgram(paramsArray, onStdOut, onStdErr);
+    this.tauriService.execProgram(paramsArray, onStdOut, onStdErr, onErr);
   }
 }

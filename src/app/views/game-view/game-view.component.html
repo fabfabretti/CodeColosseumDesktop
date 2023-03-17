@@ -67,6 +67,10 @@
                 <small class="m-2 p-error">{{gameErrorMessage}}</small>
             </div>
 
+            <div class="test-center">
+                <small class="m-2 p-error" [innerHTML]="gameStdErrorMessages"></small>
+            </div>
+
         </div>
         <div class=" flex justify-content-center ">
             <button pButton class="p-button-secondary p-button-outlined" type="button" label="Go back to game list" [routerLink]="'/home'" style="margin:30px"></button>
