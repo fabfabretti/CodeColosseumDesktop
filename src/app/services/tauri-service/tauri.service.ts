@@ -66,7 +66,17 @@ export class TauriService {
     let command: Command;
     // In Windows, a new cmd is executed to run the file with its arguments. 
     if (osType == "Windows_NT"){
-      command = new Command('sh-windows', [ "/c", `${this.absoluteFilePath.replace("/", "\\")} ${args.join(" ")}`], 
+      let lastinstance:number=this.absoluteFilePath.lastIndexOf("\\");
+
+      let path=this.absoluteFilePath.substring(0,lastinstance+1)
+      let filename=this.absoluteFilePath.substring(lastinstance+1)
+
+      // TODO: THERE IS A TAURI ISSUE.
+      // > Escaping spaces with " is then escaped by Tauri (issue wad open on Tauri github)
+      // > Escaping spaces with ^ works for absolute paths, but then we'd compromise function of the argv function 
+      //   (argv is separated on space, so path would be split into argv[0...] instead of oll on argv[0])
+      // > This can be fixed by using relative path (cd into folder -> execute), but then ^ doesn't work on relative path on windows
+      command = new Command('sh-windows', [ "/c", `cd ${path} & ${filename.replace(" ", "^ ")} ${args.join(" ")}`], 
         {"encoding": "utf-8"})
     // In Linux/MacOs, sh is used.
     }
