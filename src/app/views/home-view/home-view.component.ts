@@ -40,7 +40,7 @@ export class HomeViewComponent implements OnInit {
       this.refreshSub = interval(1000)
       .subscribe( ()=> { 
           for(let i=0;i<this.gamelist.length;i++){
-            if(this.gamelist[i].time > 0){
+            if(this.gamelist[i].time >= 0 || this.gamelist[i].running){
               this.gamelist[i].time = this.gamelist[i].time - 1;
             }
             else{
@@ -71,5 +71,9 @@ export class HomeViewComponent implements OnInit {
     }
     this.connectionManager.lobbyList1(onSuccess)
 
+  }
+
+  abs(num: number) {
+    return Math.abs(num);
   }
 }

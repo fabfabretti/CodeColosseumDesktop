@@ -45,7 +45,7 @@
                     <div class="field mb-4 col-12">
                         <label for="parameters" class="font-medium text-900">Parameters</label>
                         <textarea id="parameters" [(ngModel)]="executableParameters" type="text" pinputtextarea="" rows="5" class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable" style="height: 132px; overflow: hidden;"></textarea>
-                        <small>Your parameters must be separated by a comma (,). Parameters that contain commas are currently not supported.</small>
+                        <small>Your parameters must be separated by a newline (specify one parameter per line). Parameters that contain newline characters are currently not supported.</small>
                     </div>
 
 
@@ -65,6 +65,10 @@
 
             <div class="text-center">
                 <small class="m-2 p-error">{{gameErrorMessage}}</small>
+            </div>
+
+            <div class="test-center">
+                <small class="m-2 p-error" [innerHTML]="gameStdErrorMessages"></small>
             </div>
 
         </div>

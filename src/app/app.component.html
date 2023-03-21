@@ -8,16 +8,16 @@
     </div>
     <div class="cc-topbar-info-list">
       <div class="cc-topbar-info cc-topbar-info-username" *ngIf="isConnected">
-        <p>Ciao {{ username }}!</p>
+        <p>Hello {{ username }}!</p>
       </div>
       <div class="cc-topbar-info cc-topbar-info-server" *ngIf="isConnected">
-        <p>Connesso a {{serverUrl}}</p>
+        <p>Connected to {{serverUrl}}</p>
       </div>
       <div class="cc-topbar-info">
         <button pButton icon="pi {{changeThemIcon}}" (click)="toggleTheme()"></button>
       </div>
       <div class="cc-topbar-info cc-topbar-info-logout" *ngIf="isConnected">
-        <button pButton icon="pi pi-replay" label="Cambia server" (click)="disconnect()">
+        <button pButton icon="pi pi-replay" label="Change server" (click)="disconnect()">
         </button>
       </div>
     </div>

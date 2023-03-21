@@ -33,10 +33,6 @@ export class TauriService {
 
   async sendToProcess(message: string){
     if(this.child != null){
-      if(!message.endsWith("\n")){
-        message += "\n";
-      }
-  
       console.log("Sending to Tauri: " + message + ", process " + this.child?.pid);
   
       this.child?.write(message).then((value) => {
@@ -62,20 +58,20 @@ export class TauriService {
   async execProgram(
     args: string[],
     onProcessStdOut: (output:string)=>void,
-    onProcessStdErr?: (error:string)=>void){
+    onProcessStdErr?: (error:string)=>void,
+    onProcessErr?: (error:string)=>void){
       
     const osType = await type();
 
     let command: Command;
-    // TODO! At the moment, spaces in the filepath break the program.
     // In Windows, a new cmd is executed to run the file with its arguments. 
     if (osType == "Windows_NT"){
-      command = new Command('sh-windows', [ "/c", `${this.absoluteFilePath} ${args.join(" ")}`], 
+      command = new Command('sh-windows', [ "/c", `${this.absoluteFilePath.replace("/", "\\")} ${args.join(" ")}`], 
         {"encoding": "utf-8"})
     // In Linux/MacOs, sh is used.
     }
     else{
-      command = new Command("sh", ["-c", `${this.absoluteFilePath} ${args.join(" ")}`]);
+      command = new Command("sh", ["-c", `"${this.absoluteFilePath}" ${args.join(" ")}`]);
     }
 
     command.stdout.on("data", (line: any) => {
@@ -87,6 +83,10 @@ export class TauriService {
     });
     
     command.stderr.on("data", (line:any) => {
+      if(!line.endsWith("\n")){
+        line += "\n";
+      }
+
       if(onProcessStdErr){
         onProcessStdErr(line);
       }
@@ -99,8 +99,8 @@ export class TauriService {
     command.on("error", (error:any)=>{
       console.log("Error occurred during execution: " + error)
 
-      if(onProcessStdErr){
-        onProcessStdErr(error);
+      if(onProcessErr){
+        onProcessErr(error);
       }
     })
 
